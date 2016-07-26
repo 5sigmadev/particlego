@@ -17,11 +17,14 @@ public class TabAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                //ZoneTab tab1 = new ZoneTab();
-                //return tab1;
+                MapFragment tab1 = new MapFragment();
+                return tab1;
             case 1:
-                //HeatmapTab tab2 = new HeatmapTab();
-                //return tab2;
+                StatusFragment tab2 = new StatusFragment();
+                return tab2;
+            case 3:
+                StatusFragment tab3 = new StatusFragment();
+                return tab3;
             default:
                 return null;
         }
