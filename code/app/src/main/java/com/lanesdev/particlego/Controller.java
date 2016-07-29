@@ -1,16 +1,28 @@
 package com.lanesdev.particlego;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.lanesdev.particlego.service.LocationService;
+import com.lanesdev.particlego.view.MapFragment;
 import com.lanesdev.particlego.view.TabAdapter;
 
 public class Controller extends AppCompatActivity {
+
+    LocationReceiver locationReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +34,8 @@ public class Controller extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Map"));
-        tabLayout.addTab(tabLayout.newTab().setText("Particles"));
-        tabLayout.addTab(tabLayout.newTab().setText("Status"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Particles"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Status"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -50,8 +62,45 @@ public class Controller extends AppCompatActivity {
 
         Intent intent = new Intent(this, LocationService.class);
         startService(intent);
-        //TODO: Binding with service to get location updates
-
-
     }
+
+    @Override
+    protected void onStart() {
+        //Register BroadcastReceiver
+        //to receive event from our service
+        locationReceiver = new LocationReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(LocationService.LOCATION_UPDATE);
+        registerReceiver(locationReceiver, intentFilter);
+
+        //Start our own service
+        Intent intent = new Intent(this, LocationService.class);
+        startService(intent);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(locationReceiver);
+        super.onStop();
+    }
+
+    private class LocationReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+
+            Location location = arg1.getParcelableExtra("LOCATION");
+            Toast.makeText(getApplicationContext(), "New Location Received at Main Activity", Toast.LENGTH_SHORT).show();
+            FragmentManager supportFragment = getSupportFragmentManager();
+            if(supportFragment.getFragments().size() > 0) {
+                MapFragment mapFragment = (MapFragment) (supportFragment.getFragments().get(0));
+                if (mapFragment != null)
+                    mapFragment.updateMap(location);
+            }
+
+        }
+    }
+
 }
