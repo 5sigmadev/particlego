@@ -1,28 +1,58 @@
 package com.lanesdev.particlego.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Light on 26/07/16.
  */
-public class Particle {
+public class Particle implements Parcelable {
 
     private String name;
-    private double energyThreshold;
-    private double probability;
-    private String description;
+    private int charge;
+    private String composition;
+    private double mass;
+    private String massUnit;
+    private double lifetime;
+    private String timeUnit;
+    private int itemIcon;
 
     public Particle(String name){
         this.name = name;
-        this.energyThreshold = -1;
-        this.probability = -1;
-        this.description = "";
     }
 
-    public Particle(String name, double energy, double probability, String description) {
+    public Particle(String name, int charge, String composition, double mass, String massUnit, double lifetime, String timeUnit) {
         this.name = name;
-        this.energyThreshold = energy;
-        this.probability = probability;
-        this.description = description;
+        this.charge = charge;
+        this.composition = composition;
+        this.mass = mass;
+        this.massUnit = massUnit;
+        this.lifetime = lifetime;
+        this.timeUnit = timeUnit;
     }
+
+    protected Particle(Parcel in) {
+        name = in.readString();
+        charge = in.readInt();
+        composition = in.readString();
+        mass = in.readDouble();
+        massUnit = in.readString();
+        lifetime = in.readDouble();
+        timeUnit = in.readString();
+        itemIcon = in.readInt();
+    }
+
+    public static final Creator<Particle> CREATOR = new Creator<Particle>() {
+        @Override
+        public Particle createFromParcel(Parcel in) {
+            return new Particle(in);
+        }
+
+        @Override
+        public Particle[] newArray(int size) {
+            return new Particle[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -32,27 +62,68 @@ public class Particle {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public int getCharge() {
+        return charge;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCharge(int charge) {
+        this.charge = charge;
     }
 
-    public double getProbability() {
-        return probability;
+    public String getComposition() {
+        return composition;
     }
 
-    public void setProbability(double probability) {
-        this.probability = probability;
+    public void setComposition(String composition) {
+        this.composition = composition;
     }
 
-    public double getEnergyThreshold() {
-        return energyThreshold;
+    public double getMass() {
+        return mass;
     }
 
-    public void setEnergyThreshold(double energyThreshold) {
-        this.energyThreshold = energyThreshold;
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
+    public String getMassUnit() {
+        return massUnit;
+    }
+
+    public void setMassUnit(String massUnit) {
+        this.massUnit = massUnit;
+    }
+
+    public String getTimeUnit() {
+        return timeUnit;
+    }
+
+    public void setTimeUnit(String timeUnit) {
+        this.timeUnit = timeUnit;
+    }
+
+    public double getLifetime() {
+        return lifetime;
+    }
+
+    public void setLifetime(double lifetime) {
+        this.lifetime = lifetime;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int i) {
+        out.writeString(name);
+        out.writeInt(charge);
+        out.writeString(composition);
+        out.writeDouble(mass);
+        out.writeString(massUnit);
+        out.writeDouble(lifetime);
+        out.writeString(timeUnit);
+        out.writeInt(itemIcon);
     }
 }

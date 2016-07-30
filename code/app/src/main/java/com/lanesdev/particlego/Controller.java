@@ -13,10 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.lanesdev.particlego.model.Collider;
+import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.User;
 import com.lanesdev.particlego.service.LocationService;
 import com.lanesdev.particlego.view.MapFragment;
 import com.lanesdev.particlego.view.TabAdapter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller extends AppCompatActivity {
 
@@ -37,13 +44,12 @@ public class Controller extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Map"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Particles"));
+        tabLayout.addTab(tabLayout.newTab().setText("Experiment"));
         //tabLayout.addTab(tabLayout.newTab().setText("Status"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TabAdapter adapter = new TabAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+        final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), this.user);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -135,6 +141,10 @@ public class Controller extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void collectParticle(Particle p){
+        this.user.collectParticle(p);
     }
 
 }

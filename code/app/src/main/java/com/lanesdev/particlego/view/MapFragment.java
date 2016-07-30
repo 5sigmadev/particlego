@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
+import com.lanesdev.particlego.Controller;
 import com.lanesdev.particlego.R;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +28,7 @@ import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.ParticleGenerator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +40,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private static final int DISTANCE_THRESHOLD = 30;
     private GoogleMap mMap;
     private Marker mCurrentPoint;
-    private List<Marker> markerList;
-    private List<Particle> particleList;
+    private Map<LatLng, Particle> particleMapList;
+    private int userLevel;
+
 
 
     @Override
@@ -61,8 +64,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Inflate the layout for this fragment
         SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(this);
-        markerList = new ArrayList<Marker>();
-        particleList = new ArrayList<Particle>();
+        this.userLevel = getArguments().getInt("USER_ITEMS");
+        particleMapList = new HashMap<LatLng, Particle>();
         return rootView;
     }
 
@@ -79,14 +82,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             Map.Entry<LatLng, Particle> point = it.next();
             Bitmap drawableBitmap = BitmapFactory.decodeResource(getContext().getResources(),getResourceFromName(point.getValue().getName()));
             Bitmap bhalfsize=Bitmap.createScaledBitmap(drawableBitmap, drawableBitmap.getWidth()/10,drawableBitmap.getHeight()/10, false);
-            markerList.add(mMap.addMarker(new MarkerOptions().position(point.getKey()).title(point.getValue().getName())
+            mMap.addMarker(new MarkerOptions().position(point.getKey()).title(point.getValue().getName())
                                         .icon(BitmapDescriptorFactory.fromBitmap(bhalfsize)
-                                        )));
+                                        ));
         }
     }
 
     private Map<LatLng,Particle> generatePoints(){
-        return ParticleGenerator.generateParticles(15, true, 1);
+        return ParticleGenerator.generateParticles(15, true, this.userLevel);
     }
 
     @Override
@@ -94,6 +97,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         if(!marker.equals(mCurrentPoint)){
             double distance = distanceBetween(marker.getPosition());
             if(distance < DISTANCE_THRESHOLD){
+                Particle p = particleMapList.get(marker.getPosition());
+                ((Controller)getActivity()).collectParticle(p);
                 marker.remove();
                 return true;
             }
