@@ -5,14 +5,21 @@ package com.lanesdev.particlego.model;
  */
 public class Particle {
 
-    public static final Object ITEMS = "";
-    String name;
+    private String name;
+    private double energy;
+    private double probability;
+    private String image;
+    private String description;
 
-    public Particle() {
+    public Particle(String name, double energy, double probability, String description, String image) {
+        this.name = name;
+        this.energy = energy;
+        this.probability = probability;
+        this.description = description;
+        this.image = image;
     }
 
-    public Particle(String name) {
-        this.name = name;
+    public Particle() {
     }
 
     public String getName() {
@@ -21,5 +28,37 @@ public class Particle {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getProbability() {
+        return probability;
+    }
+
+    public void setProbability(double probability) {
+        this.probability = probability;
+    }
+
+    public double getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(double energy) {
+        this.energy = energy;
     }
 }

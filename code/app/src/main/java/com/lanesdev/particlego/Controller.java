@@ -1,14 +1,11 @@
 package com.lanesdev.particlego;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -16,18 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.lanesdev.particlego.model.User;
 import com.lanesdev.particlego.service.LocationService;
 import com.lanesdev.particlego.view.MapFragment;
 import com.lanesdev.particlego.view.TabAdapter;
 
 public class Controller extends AppCompatActivity {
 
-    LocationReceiver locationReceiver;
+    private LocationReceiver locationReceiver;
+    private User user;
+    private Location mCurrentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        User user = new User();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,9 +60,6 @@ public class Controller extends AppCompatActivity {
 
             }
         });
-
-        Intent intent = new Intent(this, LocationService.class);
-        startService(intent);
     }
 
     @Override
@@ -83,6 +81,7 @@ public class Controller extends AppCompatActivity {
     @Override
     protected void onStop() {
         unregisterReceiver(locationReceiver);
+        stopService(new Intent(this, LocationService.class));
         super.onStop();
     }
 
@@ -91,13 +90,13 @@ public class Controller extends AppCompatActivity {
         @Override
         public void onReceive(Context arg0, Intent arg1) {
 
-            Location location = arg1.getParcelableExtra("LOCATION");
+            mCurrentLocation = arg1.getParcelableExtra("LOCATION");
             Toast.makeText(getApplicationContext(), "New Location Received at Main Activity", Toast.LENGTH_SHORT).show();
             FragmentManager supportFragment = getSupportFragmentManager();
             if(supportFragment.getFragments().size() > 0) {
                 MapFragment mapFragment = (MapFragment) (supportFragment.getFragments().get(0));
                 if (mapFragment != null)
-                    mapFragment.updateMap(location);
+                    mapFragment.updateMap(mCurrentLocation);
             }
 
         }
