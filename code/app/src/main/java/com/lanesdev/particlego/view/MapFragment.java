@@ -19,10 +19,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.lanesdev.particlego.model.MapParticle;
 import com.lanesdev.particlego.model.Particle;
+import com.lanesdev.particlego.model.ParticleGenerator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -39,13 +43,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onMapReady(GoogleMap map) {
         // Add a marker in Sydney, Australia, and move the camera.
         mMap = map;
-        markerList = new ArrayList<Marker>();
-        particleList = new ArrayList<Particle>();
 
         LatLng lhc = new LatLng(46.230374, 6.054298);
         mCurrentPoint = mMap.addMarker(new MarkerOptions().position(lhc));
         mMap.setOnMarkerClickListener(this);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lhc));
+        populateMap(generatePoints());
     }
 
     @Override
@@ -55,7 +58,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Inflate the layout for this fragment
         SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(this);
-        populateMap(generatePoints());
+        markerList = new ArrayList<Marker>();
+        particleList = new ArrayList<Particle>();
         return rootView;
     }
 
@@ -66,21 +70,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
     }
 
-    private void populateMap(List<LatLng> points){
-        for(LatLng point : points){
-            markerList.add(mMap.addMarker(new MarkerOptions().position(point)));
+    private void populateMap(Map<LatLng, Particle> points){
+        Iterator<Map.Entry<LatLng, Particle>> it = points.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry<LatLng, Particle> point = it.next();
+            markerList.add(mMap.addMarker(new MarkerOptions().title(point.getValue().getName()).position(point.getKey())));
         }
     }
 
-    private List<LatLng> generatePoints(){
-        //Logic later
-        return new ArrayList<LatLng>();
+    private Map<LatLng,Particle> generatePoints(){
+        return ParticleGenerator.generateParticles(5, true);
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         if(!marker.equals(mCurrentPoint)){
-            if(distanceBetween(marker.getPosition()) > DISTANCE_THRESHOLD){
+            double distance = distanceBetween(marker.getPosition());
+            if(distance > DISTANCE_THRESHOLD){
                 marker.remove();
             }
         }

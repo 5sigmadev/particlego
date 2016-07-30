@@ -20,6 +20,11 @@ public class Particle {
     }
 
     public Particle() {
+        this.name = "Electron";
+        this.energy = 0;
+        this.probability = 0;
+        this.image = "";
+        this.description = "";
     }
 
     public String getName() {
