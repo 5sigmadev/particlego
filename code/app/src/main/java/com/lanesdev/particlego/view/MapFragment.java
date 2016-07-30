@@ -74,7 +74,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         Iterator<Map.Entry<LatLng, Particle>> it = points.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<LatLng, Particle> point = it.next();
-            markerList.add(mMap.addMarker(new MarkerOptions().title(point.getValue().getName()).position(point.getKey())));
+            markerList.add(mMap.addMarker(new MarkerOptions().position(point.getKey()).title(point.getValue().getName())));
         }
     }
 
@@ -86,8 +86,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public boolean onMarkerClick(Marker marker) {
         if(!marker.equals(mCurrentPoint)){
             double distance = distanceBetween(marker.getPosition());
-            if(distance > DISTANCE_THRESHOLD){
+            if(distance < DISTANCE_THRESHOLD){
                 marker.remove();
+                return true;
             }
         }
         return false;
