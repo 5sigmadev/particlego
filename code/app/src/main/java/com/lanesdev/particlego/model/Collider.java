@@ -6,7 +6,6 @@ public class Collider
 {
     private String name;
     private int maxEnergy;
-    private int level;
     private List<String> particlesDiscovered;
     private List<String> partsNeeded;
 
@@ -40,14 +39,6 @@ public class Collider
 
     public void setMaxEnergy(int maxEnergy) {
         this.maxEnergy = maxEnergy;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public String getParticleDiscovered() {

@@ -30,19 +30,7 @@ public class Controller extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         User user = new User("Crazy physicist");
-        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, 0, "Electron", new ArrayList<>());
-        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, 0, "Proton", new ArrayList<>());
-        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, 0, "Neutron", new ArrayList<>());
-        Collider bubbleChamber3 = new Collider("Bubble Chamber", 0, 0, "Positron", Arrays.asList("Magnets", "Chamber", "Water"));
-        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, 0, "Muon", new ArrayList<>());
-        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, 0, "Kaon", new ArrayList<>());
-
-        colliders.put(0, bubbleChamber0);
-        colliders.put(1, bubbleChamber1);
-        colliders.put(2, bubbleChamber2);
-        colliders.put(3, bubbleChamber3);
-        colliders.put(4, bubbleChamber4);
-        colliders.put(5, bubbleChamber5);
+        populateColliders();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -97,6 +85,39 @@ public class Controller extends AppCompatActivity {
         unregisterReceiver(locationReceiver);
         stopService(new Intent(this, LocationService.class));
         super.onStop();
+    }
+
+    private void populateColliders()
+    {
+        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, "Electron", new ArrayList<>());
+        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, "Proton", new ArrayList<>());
+        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, "Neutron", new ArrayList<>());
+        Collider bubbleChamber3 = new Collider("Bubble Chamber", 0, "Positron", Arrays.asList("Magnets", "Chamber", "Water"));
+        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, "Muon", new ArrayList<>());
+        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, "Kaon", new ArrayList<>());
+        Collider bevatron = new Collider("Bevatron", 1, "Antiproton", Arrays.asList("Magnets", "Vacuum chamber"));
+        Collider poltergeist = new Collider("Poltergeist", 0, "Neutrino", Arrays.asList("Reactor", "Chemicals"));
+        Collider slack0 = new Collider("SLAC", 90, "Quarks", Arrays.asList("Magnets", "Beam pipe"));
+        Collider slack1 = new Collider("SLAC", 90, "J/psi", new ArrayList<>());
+        Collider doris = new Collider("Doris", 10, "Gluon", Arrays.asList("Magnets", "Beam pipe", "Detector"));
+        Collider sps0 = new Collider("SPS", 540, "W", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system"));
+        Collider sps1 = new Collider("SPS", 540, "Z", new ArrayList<>());
+        Collider lhc = new Collider("LHC", 14000, "Higgs boson", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system", "Liquid helium"));
+
+        this.colliders.put(0, bubbleChamber0);
+        this.colliders.put(1, bubbleChamber1);
+        this.colliders.put(2, bubbleChamber2);
+        this.colliders.put(3, bubbleChamber3);
+        this.colliders.put(4, bubbleChamber4);
+        this.colliders.put(5, bubbleChamber5);
+        this.colliders.put(6, bevatron);
+        this.colliders.put(7, poltergeist);
+        this.colliders.put(8, slack0);
+        this.colliders.put(9, slack1);
+        this.colliders.put(10, doris);
+        this.colliders.put(11, sps0);
+        this.colliders.put(12, sps1);
+        this.colliders.put(13, lhc);
     }
 
     private class LocationReceiver extends BroadcastReceiver {
