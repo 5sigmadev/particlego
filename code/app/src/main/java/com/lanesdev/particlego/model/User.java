@@ -10,6 +10,7 @@ public final class User
     private List<String> collectedColliderParts = new ArrayList<>();
     private int collectedEnergy = 0;
     private int level = 6;
+    private int collidersBuilt = 2;
 
     public User(final String name)
     {
@@ -73,6 +74,15 @@ public final class User
             particleNames.add(p.getName());
         }
         return particleNames;
+    }
+
+
+    public int getCollidersBuilt() {
+        return collidersBuilt;
+    }
+
+    public void setCollidersBuilt(int collidersBuilt) {
+        this.collidersBuilt = collidersBuilt;
     }
 
 

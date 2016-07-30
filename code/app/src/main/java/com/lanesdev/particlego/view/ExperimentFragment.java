@@ -27,6 +27,7 @@ public class ExperimentFragment extends Fragment {
     private Button experimentButton;
     private ExperimentItemAdapter listvAdapter;
     private List<Particle> data;
+    private Random r = new Random();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +41,43 @@ public class ExperimentFragment extends Fragment {
         experimentButton = (Button)rootView.findViewById(R.id.experiment_btn);
         experimentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                int userLevel = user.getLevel();
+                int collidersBuilt = user.getCollidersBuilt();
+                int energy = user.getEnergy();
 
+                List<Particle> particles = user.getCollectedParticles();
+                List<String> particleNames = user.collectedParticlesNames();
+                // disable button if any of first three if's are false
+                if (userLevel == collidersBuilt)
+                {
+                    int colliderEnergy = colliders.get(userLevel).getMaxEnergy();
+                    if (energy >= colliderEnergy)
+                    {
+                        if (Collections.frequency(particleNames, "Electron") >= 2) //fix particle for collider
+                        {
+                            user.setEnergy(user.getEnergy() - colliderEnergy);
+                            //remove 2 particles from user list
+                            double randNum = r.nextDouble();
+                            if (randNum <= 0.5)
+                            {
+                                user.setLevel(user.getLevel() + 1);
+                                // give level particle
+                                // success pop up
+                            }
+                            else
+                            {
+                                //give some other particle
+                            }
+                        } else {
+                            System.out.println("No particles");
+                        }
+                    } else {
+                        System.out.println("No energy");
+                    }
+                }
+                else {
+                    System.out.println("No collider");
+                }
             }
         });
 
