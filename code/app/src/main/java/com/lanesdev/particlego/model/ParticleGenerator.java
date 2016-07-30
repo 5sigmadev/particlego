@@ -28,7 +28,7 @@ public final class ParticleGenerator
         return particles;
     }
 
-    public static MapParticle generateParticle(final boolean hasBubbleChamber)
+    public static MapParticle generateParticle(final boolean hasBubbleChamber, final int userlevel)
     {
         //final double longitude = r.nextDouble() * 2 * LONGITUDE_MAX - LONGITUDE_MAX;
         //final double latitude = r.nextDouble() * 2 * LATITUDE_MAX - LATITUDE_MAX;
@@ -40,23 +40,23 @@ public final class ParticleGenerator
         final double possibleParticlesNumber = hasBubbleChamber ? POSSIBLE_PARTICLES_WITH_CHAMBER : POSSIBLE_PARTICLES_NO_CHAMBER;
         String name = "Electron";
 
-        if (randNum > 1.0 / possibleParticlesNumber)
+        if (userlevel > 0 && randNum > 1.0 / possibleParticlesNumber)
         {
             name = "Proton";
         }
-        if (randNum > 2.0 / possibleParticlesNumber)
+        if (userlevel > 1 && randNum > 2.0 / possibleParticlesNumber)
         {
             name = "Neutron";
         }
-        if (randNum > 3.0 / possibleParticlesNumber)
+        if (userlevel > 2 && randNum > 3.0 / possibleParticlesNumber)
         {
             name = "Positron";
         }
-        if (randNum > 4.0 / possibleParticlesNumber)
+        if (userlevel > 3 && randNum > 4.0 / possibleParticlesNumber)
         {
             name = "Muon";
         }
-        if (randNum > 5.0 / possibleParticlesNumber)
+        if (userlevel > 4 && randNum > 5.0 / possibleParticlesNumber)
         {
             name = "Kaon";
         }

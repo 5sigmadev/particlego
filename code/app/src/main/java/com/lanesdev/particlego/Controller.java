@@ -23,12 +23,26 @@ public class Controller extends AppCompatActivity {
     private LocationReceiver locationReceiver;
     private User user;
     private Location mCurrentLocation;
+    private Map<Integer, Collider> colliders = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        User user = new User();
+        User user = new User("Crazy physicist");
+        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, 0, "Electron", new ArrayList<>());
+        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, 0, "Proton", new ArrayList<>());
+        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, 0, "Neutron", new ArrayList<>());
+        Collider bubbleChamber3 = new Collider("Bubble Chamber", 0, 0, "Positron", Arrays.asList("Magnets", "Chamber", "Water"));
+        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, 0, "Muon", new ArrayList<>());
+        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, 0, "Kaon", new ArrayList<>());
+
+        colliders.put(0, bubbleChamber0);
+        colliders.put(1, bubbleChamber1);
+        colliders.put(2, bubbleChamber2);
+        colliders.put(3, bubbleChamber3);
+        colliders.put(4, bubbleChamber4);
+        colliders.put(5, bubbleChamber5);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
