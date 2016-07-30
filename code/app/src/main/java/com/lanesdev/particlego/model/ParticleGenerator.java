@@ -10,8 +10,8 @@ public final class ParticleGenerator
 {
     //private static final int LONGITUDE_MAX = 180;
     //private static final int LATITUDE_MAX = 85;
-    private static final double LONGITUDE_MAX = 0.001;
-    private static final double LATITUDE_MAX = 0.003;
+    private static final double LONGITUDE_MAX = 0.00001;
+    private static final double LATITUDE_MAX = 0.00003;
     private static final int POSSIBLE_PARTICLES_NO_CHAMBER = 3;
     private static final int POSSIBLE_PARTICLES_WITH_CHAMBER = 6;
 

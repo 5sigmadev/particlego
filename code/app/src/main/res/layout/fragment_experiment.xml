@@ -4,19 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/experiment_btn"
-        android:id="@+id/experiment_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/experiment_btn"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/experiment_layout">
         <ProgressBar
             android:id="@+id/progress_bar_zonetab"
             android:layout_width="wrap_content"
@@ -30,12 +22,22 @@
             android:id="@+id/info_lv"
             android:scrollbars="vertical"
             android:choiceMode="none"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:divider="@android:color/darker_gray"
             android:dividerHeight="2dp"
             android:clipToPadding="true"/>
+
     </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/experiment_btn"
+        android:id="@+id/experiment_btn"
+        android:layout_alignBottom="@+id/experiment_layout"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

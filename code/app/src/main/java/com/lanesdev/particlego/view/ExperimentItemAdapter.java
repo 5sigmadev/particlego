@@ -1,6 +1,7 @@
 package com.lanesdev.particlego.view;
 
 import android.content.Context;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class ExperimentItemAdapter extends ArrayAdapter<Particle> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        DiseaseItemHolder holder = null;
+        ExperimentItemHolder holder = null;
 
         if(row == null)
         {
@@ -42,37 +43,32 @@ public class ExperimentItemAdapter extends ArrayAdapter<Particle> {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layoutResourceId, parent, false);
 
-            holder = new DiseaseItemHolder();
-            holder.name_tv = (TextView)row.findViewById(R.id.disease_tv);
-            holder.level_tv = (TextView)row.findViewById(R.id.level_tv);
-            holder.location_date_tv = (TextView)row.findViewById(R.id.location_date_tv);
-            holder.twitter_tv = (TextView)row.findViewById(R.id.twitter_tv);
-            holder.news_tv = (TextView)row.findViewById(R.id.news_tv);
-            holder.cdc_tv = (TextView)row.findViewById(R.id.cdc_tv);
-            holder.twitter_icon = (ImageView)row.findViewById(R.id.twitter_iv);
+            holder = new ExperimentItemHolder();
+            holder.name_tv = (TextView)row.findViewById(R.id.name_tv);
+            holder.description_tv = (TextView)row.findViewById(R.id.item_description);
+            holder.item_icon = (ImageView)row.findViewById(R.id.item_icon);
 
             row.setTag(holder);
         }
         else
         {
-            holder = (DiseaseItemHolder)row.getTag();
+            holder = (ExperimentItemHolder)row.getTag();
         }
 
-        Particle diseaseItem = data.get(position);
-        //holder.name_tv.setText(diseaseItem.getName());
+        Particle particleItem = data.get(position);
+        holder.name_tv.setText(particleItem.getName());
+        holder.description_tv.setText(particleItem.getDescription());
+        holder.item_icon.setImageDrawable(ResourcesCompat.getDrawable(getContext().getResources(),
+                particleItem.getItemIcon() , null));
 
         return row;
     }
 
 
 
-    static class DiseaseItemHolder {
+    static class ExperimentItemHolder {
         TextView name_tv;
-        TextView level_tv;
-        TextView location_date_tv;
-        TextView twitter_tv;
-        TextView news_tv;
-        TextView cdc_tv;
-        ImageView twitter_icon;
+        TextView description_tv;
+        ImageView item_icon;
     }
 }

@@ -11,12 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.lanesdev.particlego.model.Collider;
 import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.User;
 import com.lanesdev.particlego.service.LocationService;
+import com.lanesdev.particlego.view.ExperimentFragment;
 import com.lanesdev.particlego.view.MapFragment;
 import com.lanesdev.particlego.view.TabAdapter;
 
@@ -124,6 +126,13 @@ public class Controller extends AppCompatActivity {
 
     public void collectParticle(Particle p){
         this.user.collectParticle(p);
+        FragmentManager supportFragment = getSupportFragmentManager();
+        if(supportFragment.getFragments().size() == 2) {
+            ExperimentFragment experimentFragment = (ExperimentFragment) (supportFragment.getFragments().get(1));
+            if (experimentFragment != null)
+                experimentFragment.refresh(p);
+        }
+        Log.e("TAG", String.valueOf(this.user.getCollectedParticles().size()));
     }
 
 }

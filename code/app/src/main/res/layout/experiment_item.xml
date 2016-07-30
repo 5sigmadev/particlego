@@ -18,7 +18,7 @@
         android:textSize="22dp"
         android:textColor="#000000"
         android:textStyle="bold"
-        android:id="@+id/disease_tv"
+        android:id="@+id/name_tv"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_row="0"
@@ -35,7 +35,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:scaleType="fitXY"
-        android:contentDescription="@string/twitter_icon_description" />
+        android:contentDescription="@string/item_icon_description" />
 
     <TextView
         android:layout_width="wrap_content"

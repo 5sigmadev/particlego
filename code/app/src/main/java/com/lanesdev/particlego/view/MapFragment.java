@@ -53,8 +53,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         LatLng lhc = new LatLng(46.230374, 6.054298);
         mCurrentPoint = mMap.addMarker(new MarkerOptions().position(lhc));
         mMap.setOnMarkerClickListener(this);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(lhc));
-        populateMap(generatePoints());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lhc,15));
+        particleMapList = generatePoints();
+        populateMap(particleMapList);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Inflate the layout for this fragment
         SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(this);
-        this.userLevel = getArguments().getInt("USER_ITEMS");
+        this.userLevel = getArguments().getInt("USER_LEVEL");
         particleMapList = new HashMap<LatLng, Particle>();
         return rootView;
     }
@@ -73,14 +74,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mCurrentPoint.remove();
         LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
         mCurrentPoint = mMap.addMarker(new MarkerOptions().position(point));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
     }
 
     private void populateMap(Map<LatLng, Particle> points){
         Iterator<Map.Entry<LatLng, Particle>> it = points.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<LatLng, Particle> point = it.next();
-            Bitmap drawableBitmap = BitmapFactory.decodeResource(getContext().getResources(),getResourceFromName(point.getValue().getName()));
+            Bitmap drawableBitmap = BitmapFactory.decodeResource(getContext().getResources(),point.getValue().getResourceFromName());
             Bitmap bhalfsize=Bitmap.createScaledBitmap(drawableBitmap, drawableBitmap.getWidth()/10,drawableBitmap.getHeight()/10, false);
             mMap.addMarker(new MarkerOptions().position(point.getKey()).title(point.getValue().getName())
                                         .icon(BitmapDescriptorFactory.fromBitmap(bhalfsize)
@@ -119,25 +119,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
 
         return currentLoc.distanceTo(pointLoc);
-    }
-
-    public int getResourceFromName(String name){
-        switch(name){
-            case "Electron":
-                return R.drawable.electron;
-            case "Proton":
-                return R.drawable.proton;
-            case "Neutron":
-                return R.drawable.neutron;
-            case "Muon":
-                return R.drawable.muon;
-            case "Positron":
-                return R.drawable.positron;
-            case "Kaon":
-                return R.drawable.kaon;
-            default:
-                return R.drawable.electron;
-
-        }
     }
 }

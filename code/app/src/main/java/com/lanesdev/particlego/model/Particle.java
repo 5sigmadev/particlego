@@ -3,6 +3,8 @@ package com.lanesdev.particlego.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.lanesdev.particlego.R;
+
 /**
  * Created by Light on 26/07/16.
  */
@@ -19,9 +21,11 @@ public class Particle implements Parcelable {
 
     public Particle(String name){
         this.name = name;
+        this.itemIcon = getResourceFromName();
     }
 
-    public Particle(String name, int charge, String composition, double mass, String massUnit, double lifetime, String timeUnit) {
+    public Particle(String name, int charge, String composition, double mass, String massUnit,
+                    double lifetime, String timeUnit) {
         this.name = name;
         this.charge = charge;
         this.composition = composition;
@@ -29,6 +33,7 @@ public class Particle implements Parcelable {
         this.massUnit = massUnit;
         this.lifetime = lifetime;
         this.timeUnit = timeUnit;
+        this.itemIcon = getResourceFromName();
     }
 
     protected Particle(Parcel in) {
@@ -110,6 +115,14 @@ public class Particle implements Parcelable {
         this.lifetime = lifetime;
     }
 
+    public int getItemIcon() {
+        return itemIcon;
+    }
+
+    public void setItemIcon(int itemIcon) {
+        this.itemIcon = itemIcon;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -125,5 +138,29 @@ public class Particle implements Parcelable {
         out.writeDouble(lifetime);
         out.writeString(timeUnit);
         out.writeInt(itemIcon);
+    }
+
+    public String getDescription() {
+        return "Lorem Ipsum";
+    }
+
+    public int getResourceFromName(){
+        switch(this.name){
+            case "Electron":
+                return R.drawable.electron;
+            case "Proton":
+                return R.drawable.proton;
+            case "Neutron":
+                return R.drawable.neutron;
+            case "Muon":
+                return R.drawable.muon;
+            case "Positron":
+                return R.drawable.positron;
+            case "Kaon":
+                return R.drawable.kaon;
+            default:
+                return R.drawable.electron;
+
+        }
     }
 }

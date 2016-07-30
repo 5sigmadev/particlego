@@ -31,7 +31,7 @@ public class ExperimentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        data = getArguments().getParcelableArrayList("");
+        data = getArguments().getParcelableArrayList("USER_ITEMS");
 
         View rootView = inflater.inflate(R.layout.fragment_experiment, container, false);
         listv = (ListView)rootView.findViewById(R.id.info_lv);
@@ -51,5 +51,11 @@ public class ExperimentFragment extends Fragment {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         listvAdapter = new ExperimentItemAdapter(getActivity().getApplicationContext(), R.layout.experiment_item, data);
         listv.setAdapter(listvAdapter);
+    }
+
+    public void refresh(Particle particle) {
+        if(particle != null) {
+            listvAdapter.notifyDataSetChanged();
+        }
     }
 }
