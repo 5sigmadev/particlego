@@ -1,6 +1,8 @@
 package com.lanesdev.particlego.view;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.lanesdev.particlego.R;
 
@@ -32,7 +35,7 @@ import java.util.Map;
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
 
-    private static final int DISTANCE_THRESHOLD = 10;
+    private static final int DISTANCE_THRESHOLD = 30;
     private GoogleMap mMap;
     private Marker mCurrentPoint;
     private List<Marker> markerList;
@@ -74,12 +77,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         Iterator<Map.Entry<LatLng, Particle>> it = points.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<LatLng, Particle> point = it.next();
-            markerList.add(mMap.addMarker(new MarkerOptions().position(point.getKey()).title(point.getValue().getName())));
+            Bitmap drawableBitmap = BitmapFactory.decodeResource(getContext().getResources(),getResourceFromName(point.getValue().getName()));
+            Bitmap bhalfsize=Bitmap.createScaledBitmap(drawableBitmap, drawableBitmap.getWidth()/10,drawableBitmap.getHeight()/10, false);
+            markerList.add(mMap.addMarker(new MarkerOptions().position(point.getKey()).title(point.getValue().getName())
+                                        .icon(BitmapDescriptorFactory.fromBitmap(bhalfsize)
+                                        )));
         }
     }
 
     private Map<LatLng,Particle> generatePoints(){
-        return ParticleGenerator.generateParticles(5, true);
+        return ParticleGenerator.generateParticles(15, true);
     }
 
     @Override
@@ -107,5 +114,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
 
         return currentLoc.distanceTo(pointLoc);
+    }
+
+    public int getResourceFromName(String name){
+        switch(name){
+            case "Electron":
+                return R.drawable.electron;
+            case "Proton":
+                return R.drawable.proton;
+            case "Neutron":
+                return R.drawable.neutron;
+            case "Muon":
+                return R.drawable.muon;
+            case "Positron":
+                return R.drawable.positron;
+            case "Kaon":
+                return R.drawable.kaon;
+            default:
+                return R.drawable.electron;
+
+        }
     }
 }

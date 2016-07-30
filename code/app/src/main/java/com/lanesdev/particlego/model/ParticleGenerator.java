@@ -38,7 +38,9 @@ public final class ParticleGenerator
         final double randNum = r.nextDouble();
 
         final double possibleParticlesNumber = hasBubbleChamber ? POSSIBLE_PARTICLES_WITH_CHAMBER : POSSIBLE_PARTICLES_NO_CHAMBER;
+
         String name = "Electron";
+
 
         if (randNum > 1.0 / possibleParticlesNumber)
         {
@@ -61,6 +63,6 @@ public final class ParticleGenerator
             name = "Kaon";
         }
 
-        return new MapParticle(new Particle(), new LatLng(latitude, longitude));
+        return new MapParticle(new Particle(name), new LatLng(latitude, longitude));
     }
 }

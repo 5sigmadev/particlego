@@ -6,25 +6,22 @@ package com.lanesdev.particlego.model;
 public class Particle {
 
     private String name;
-    private double energy;
+    private double energyThreshold;
     private double probability;
-    private String image;
     private String description;
 
-    public Particle(String name, double energy, double probability, String description, String image) {
+    public Particle(String name){
         this.name = name;
-        this.energy = energy;
-        this.probability = probability;
-        this.description = description;
-        this.image = image;
+        this.energyThreshold = -1;
+        this.probability = -1;
+        this.description = "";
     }
 
-    public Particle() {
-        this.name = "Electron";
-        this.energy = 0;
-        this.probability = 0;
-        this.image = "";
-        this.description = "";
+    public Particle(String name, double energy, double probability, String description) {
+        this.name = name;
+        this.energyThreshold = energy;
+        this.probability = probability;
+        this.description = description;
     }
 
     public String getName() {
@@ -43,14 +40,6 @@ public class Particle {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public double getProbability() {
         return probability;
     }
@@ -59,11 +48,11 @@ public class Particle {
         this.probability = probability;
     }
 
-    public double getEnergy() {
-        return energy;
+    public double getEnergyThreshold() {
+        return energyThreshold;
     }
 
-    public void setEnergy(double energy) {
-        this.energy = energy;
+    public void setEnergyThreshold(double energyThreshold) {
+        this.energyThreshold = energyThreshold;
     }
 }
