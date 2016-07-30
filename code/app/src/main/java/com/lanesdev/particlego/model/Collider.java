@@ -20,6 +20,25 @@ public class Collider implements Parcelable
         this.partsNeeded = partsNeeded;
     }
 
+    protected Collider(Parcel in) {
+        name = in.readString();
+        maxEnergy = in.readInt();
+        particle = in.readString();
+        partsNeeded = in.createStringArrayList();
+    }
+
+    public static final Creator<Collider> CREATOR = new Creator<Collider>() {
+        @Override
+        public Collider createFromParcel(Parcel in) {
+            return new Collider(in);
+        }
+
+        @Override
+        public Collider[] newArray(int size) {
+            return new Collider[size];
+        }
+    };
+
     public List<String> getPartsNeeded() {
         return partsNeeded;
     }

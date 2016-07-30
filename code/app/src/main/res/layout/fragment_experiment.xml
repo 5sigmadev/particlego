@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/experiment_layout">
@@ -28,16 +28,18 @@
             android:paddingRight="5dp"
             android:divider="@android:color/darker_gray"
             android:dividerHeight="2dp"
-            android:clipToPadding="true"/>
+            android:clipToPadding="false"/>
 
     </RelativeLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/experiment_btn"
         android:id="@+id/experiment_btn"
         android:layout_alignBottom="@+id/experiment_layout"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:minHeight="50dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
