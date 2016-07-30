@@ -17,18 +17,18 @@ public final class ParticleGenerator
 
     private static final Random r = new Random();
 
-    public static Map<LatLng, Particle> generateParticles(final int number, final boolean hasBubbleChamber)
+    public static Map<LatLng, Particle> generateParticles(final int number, final boolean hasBubbleChamber, final int userlevel)
     {
         final Map<LatLng, Particle>  particles = new HashMap<LatLng, Particle> ();
         for (int i = 0; i < number; i++)
         {
-            MapParticle particle = generateParticle(hasBubbleChamber);
+            MapParticle particle = generateParticle(hasBubbleChamber, 1);
             particles.put(particle.getLocation(),particle.getParticle());
         }
         return particles;
     }
 
-    public static MapParticle generateParticle(final boolean hasBubbleChamber)
+    public static MapParticle generateParticle(final boolean hasBubbleChamber, final int userlevel)
     {
         //final double longitude = r.nextDouble() * 2 * LONGITUDE_MAX - LONGITUDE_MAX;
         //final double latitude = r.nextDouble() * 2 * LATITUDE_MAX - LATITUDE_MAX;
@@ -41,24 +41,24 @@ public final class ParticleGenerator
 
         String name = "Electron";
 
+        if (userlevel > 0 && randNum > 1.0 / possibleParticlesNumber)
 
-        if (randNum > 1.0 / possibleParticlesNumber)
         {
             name = "Proton";
         }
-        if (randNum > 2.0 / possibleParticlesNumber)
+        if (userlevel > 1 && randNum > 2.0 / possibleParticlesNumber)
         {
             name = "Neutron";
         }
-        if (randNum > 3.0 / possibleParticlesNumber)
+        if (userlevel > 2 && randNum > 3.0 / possibleParticlesNumber)
         {
             name = "Positron";
         }
-        if (randNum > 4.0 / possibleParticlesNumber)
+        if (userlevel > 3 && randNum > 4.0 / possibleParticlesNumber)
         {
             name = "Muon";
         }
-        if (randNum > 5.0 / possibleParticlesNumber)
+        if (userlevel > 4 && randNum > 5.0 / possibleParticlesNumber)
         {
             name = "Kaon";
         }

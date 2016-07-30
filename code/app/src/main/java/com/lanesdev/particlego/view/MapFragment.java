@@ -86,7 +86,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
     private Map<LatLng,Particle> generatePoints(){
-        return ParticleGenerator.generateParticles(15, true);
+        return ParticleGenerator.generateParticles(15, true, 1);
     }
 
     @Override
