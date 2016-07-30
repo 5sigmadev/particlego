@@ -7,13 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.lanesdev.particlego.R;
+import com.lanesdev.particlego.model.Collider;
 import com.lanesdev.particlego.model.Particle;
+import com.lanesdev.particlego.model.User;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -28,11 +32,17 @@ public class ExperimentFragment extends Fragment {
     private ExperimentItemAdapter listvAdapter;
     private List<Particle> data;
     private Random r = new Random();
+    private User user;
+    private HashMap<Integer, Collider> colliders;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        data = getArguments().getParcelableArrayList("USER_ITEMS");
+        user = getArguments().getParcelable("USER");
+        colliders = (HashMap<Integer, Collider>) getArguments().getSerializable("COLLIDERS");
+        data = user.getCollectedParticles();
+
 
         View rootView = inflater.inflate(R.layout.fragment_experiment, container, false);
         listv = (ListView)rootView.findViewById(R.id.info_lv);
@@ -45,11 +55,11 @@ public class ExperimentFragment extends Fragment {
                 int collidersBuilt = user.getCollidersBuilt();
                 int energy = user.getEnergy();
 
-                List<Particle> particles = user.getCollectedParticles();
                 List<String> particleNames = user.collectedParticlesNames();
                 // disable button if any of first three if's are false
-                if (userLevel == collidersBuilt)
-                {
+                //if (userLevel == collidersBuilt)
+                //{
+                if(user.getLevel() < colliders.size()){
                     int colliderEnergy = colliders.get(userLevel).getMaxEnergy();
                     if (energy >= colliderEnergy)
                     {
@@ -57,16 +67,21 @@ public class ExperimentFragment extends Fragment {
                         {
                             user.setEnergy(user.getEnergy() - colliderEnergy);
                             //remove 2 particles from user list
+                            user.removeParticleByName("Electron", 2);
+                            refresh();
                             double randNum = r.nextDouble();
                             if (randNum <= 0.5)
                             {
                                 user.setLevel(user.getLevel() + 1);
-                                // give level particle
-                                // success pop up
+                                user.setCollidersBuilt(user.getCollidersBuilt() + 1);
+                                user.collectParticle(new Particle(colliders.get(collidersBuilt).getParticleDiscovered()));
+                                refresh();
+                                Toast.makeText(getContext(), "Collided successfully", Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
                                 //give some other particle
+                                Toast.makeText(getContext(), "Collided unsuccessfully", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             System.out.println("No particles");
@@ -75,9 +90,9 @@ public class ExperimentFragment extends Fragment {
                         System.out.println("No energy");
                     }
                 }
-                else {
-                    System.out.println("No collider");
-                }
+                //else {
+                //    System.out.println("No collider");
+                //}
             }
         });
 
@@ -90,9 +105,7 @@ public class ExperimentFragment extends Fragment {
         listv.setAdapter(listvAdapter);
     }
 
-    public void refresh(Particle particle) {
-        if(particle != null) {
+    public void refresh() {
             listvAdapter.notifyDataSetChanged();
-        }
     }
 }

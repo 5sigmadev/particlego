@@ -25,20 +25,19 @@ import com.lanesdev.particlego.view.TabAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Controller extends AppCompatActivity {
 
     private LocationReceiver locationReceiver;
     private User user;
     private Location mCurrentLocation;
-    private Map<Integer, Collider> colliders = new HashMap<>();
+    private HashMap<Integer, Collider> colliders = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        User user = new User("Crazy physicist");
+        this.user = new User("Crazy physicist");
         populateColliders();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -51,7 +50,7 @@ public class Controller extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), this.user);
+        final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), this.user, this.colliders);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -97,19 +96,19 @@ public class Controller extends AppCompatActivity {
 
     private void populateColliders()
     {
-        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, "Electron", new ArrayList<>());
-        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, "Proton", new ArrayList<>());
-        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, "Neutron", new ArrayList<>());
+        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, "Electron", new ArrayList<String>());
+        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, "Proton", new ArrayList<String>());
+        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, "Neutron", new ArrayList<String>());
         Collider bubbleChamber3 = new Collider("Bubble Chamber", 0, "Positron", Arrays.asList("Magnets", "Chamber", "Water"));
-        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, "Muon", new ArrayList<>());
-        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, "Kaon", new ArrayList<>());
+        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, "Muon", new ArrayList<String>());
+        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, "Kaon", new ArrayList<String>());
         Collider bevatron = new Collider("Bevatron", 1, "Antiproton", Arrays.asList("Magnets", "Vacuum chamber"));
         Collider poltergeist = new Collider("Poltergeist", 0, "Neutrino", Arrays.asList("Reactor", "Chemicals"));
         Collider slack0 = new Collider("SLAC", 90, "Quarks", Arrays.asList("Magnets", "Beam pipe"));
-        Collider slack1 = new Collider("SLAC", 90, "J/psi", new ArrayList<>());
+        Collider slack1 = new Collider("SLAC", 90, "J/psi", new ArrayList<String>());
         Collider doris = new Collider("Doris", 10, "Gluon", Arrays.asList("Magnets", "Beam pipe", "Detector"));
         Collider sps0 = new Collider("SPS", 540, "W", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system"));
-        Collider sps1 = new Collider("SPS", 540, "Z", new ArrayList<>());
+        Collider sps1 = new Collider("SPS", 540, "Z", new ArrayList<String>());
         Collider lhc = new Collider("LHC", 14000, "Higgs boson", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system", "Liquid helium"));
 
         this.colliders.put(0, bubbleChamber0);
@@ -151,7 +150,7 @@ public class Controller extends AppCompatActivity {
         if(supportFragment.getFragments().size() == 2) {
             ExperimentFragment experimentFragment = (ExperimentFragment) (supportFragment.getFragments().get(1));
             if (experimentFragment != null)
-                experimentFragment.refresh(p);
+                experimentFragment.refresh();
         }
         Log.e("TAG", String.valueOf(this.user.getCollectedParticles().size()));
     }

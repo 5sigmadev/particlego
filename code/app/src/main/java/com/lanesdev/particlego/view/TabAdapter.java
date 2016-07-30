@@ -5,17 +5,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.lanesdev.particlego.model.Collider;
 import com.lanesdev.particlego.model.User;
+
+import java.util.HashMap;
 
 public class TabAdapter extends FragmentPagerAdapter {
 
     int mNumOfTabs;
     User user;
+    HashMap<Integer, Collider> colliderMap;
 
-    public TabAdapter(FragmentManager fm, int NumOfTabs, User user) {
+    public TabAdapter(FragmentManager fm, int NumOfTabs, User user, HashMap<Integer, Collider> colliders) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.user = user;
+        this.colliderMap = colliders;
     }
 
     @Override
@@ -30,7 +35,8 @@ public class TabAdapter extends FragmentPagerAdapter {
                 return tab1;
             case 1:
                 Bundle bundle2 = new Bundle();
-                bundle2.putParcelableArrayList("USER_ITEMS", this.user.getCollectedParticles());
+                bundle2.putParcelable("USER", this.user);
+                bundle2.putSerializable("COLLIDERS", this.colliderMap);
                 ExperimentFragment tab2 = new ExperimentFragment();
                 tab2.setArguments(bundle2);
                 return tab2;

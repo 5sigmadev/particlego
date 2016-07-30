@@ -1,19 +1,21 @@
 package com.lanesdev.particlego.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.lang.String;
 import java.util.List;
 
-public class Collider
+public class Collider implements Parcelable
 {
     private String name;
     private int maxEnergy;
     private String particle;
     private List<String> partsNeeded;
 
-    public Collider(String name, int maxEnergy, int level, String particle, List<String> partsNeeded) {
+    public Collider(String name, int maxEnergy, String particle, List<String> partsNeeded) {
         this.name = name;
         this.maxEnergy = maxEnergy;
-        this.level = level;
         this.particle = particle;
         this.partsNeeded = partsNeeded;
     }
@@ -48,5 +50,18 @@ public class Collider
 
     public void setParticleDiscovered(String particle) {
         this.particle = particle;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int i) {
+        out.writeString(name);
+        out.writeInt(maxEnergy);
+        out.writeString(particle);
+        out.writeStringList(partsNeeded);
     }
 }

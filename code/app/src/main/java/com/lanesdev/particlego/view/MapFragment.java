@@ -89,7 +89,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
     private Map<LatLng,Particle> generatePoints(){
-        return ParticleGenerator.generateParticles(15, true, this.userLevel);
+        boolean hasCloudChamber = this.userLevel > 2;
+        return ParticleGenerator.generateParticles(10, hasCloudChamber, this.userLevel);
     }
 
     @Override
@@ -100,6 +101,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 Particle p = particleMapList.get(marker.getPosition());
                 ((Controller)getActivity()).collectParticle(p);
                 marker.remove();
+                particleMapList.remove(marker.getPosition());
+                if(particleMapList.size() < 5){
+                    particleMapList = generatePoints();
+                    populateMap(particleMapList);
+                }
                 return true;
             }
         }
