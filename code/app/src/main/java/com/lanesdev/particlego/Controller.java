@@ -13,10 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.lanesdev.particlego.model.Collider;
+import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.User;
 import com.lanesdev.particlego.service.LocationService;
 import com.lanesdev.particlego.view.MapFragment;
 import com.lanesdev.particlego.view.TabAdapter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller extends AppCompatActivity {
 
@@ -29,13 +36,13 @@ public class Controller extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        User user = new User("Crazy physicist");
-        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, 0, "Electron", new ArrayList<>());
-        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, 0, "Proton", new ArrayList<>());
-        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, 0, "Neutron", new ArrayList<>());
+        user = new User("Crazy physicist");
+        Collider bubbleChamber0 = new Collider("Bubble Chamber", 0, 0, "Electron", new ArrayList<String>());
+        Collider bubbleChamber1 = new Collider("Bubble Chamber", 0, 0, "Proton", new ArrayList<String>());
+        Collider bubbleChamber2 = new Collider("Bubble Chamber", 0, 0, "Neutron", new ArrayList<String>());
         Collider bubbleChamber3 = new Collider("Bubble Chamber", 0, 0, "Positron", Arrays.asList("Magnets", "Chamber", "Water"));
-        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, 0, "Muon", new ArrayList<>());
-        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, 0, "Kaon", new ArrayList<>());
+        Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, 0, "Muon", new ArrayList<String>());
+        Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, 0, "Kaon", new ArrayList<String>());
 
         colliders.put(0, bubbleChamber0);
         colliders.put(1, bubbleChamber1);
@@ -49,13 +56,12 @@ public class Controller extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Map"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Particles"));
+        tabLayout.addTab(tabLayout.newTab().setText("Experiment"));
         //tabLayout.addTab(tabLayout.newTab().setText("Status"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TabAdapter adapter = new TabAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+        final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), this.user);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -114,6 +120,10 @@ public class Controller extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void collectParticle(Particle p){
+        this.user.collectParticle(p);
     }
 
 }

@@ -1,13 +1,14 @@
+package com.lanesdev.particlego.model;
+
 import java.lang.String;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class Collider
 {
     private String name;
     private int maxEnergy;
     private int level;
-    private List<String> particlesDiscovered;
+    private String particle;
     private List<String> partsNeeded;
 
     public Collider(String name, int maxEnergy, int level, String particle, List<String> partsNeeded) {

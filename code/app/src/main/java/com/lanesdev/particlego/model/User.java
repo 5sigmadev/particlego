@@ -6,10 +6,10 @@ import java.util.List;
 public final class User
 {
     private String name;
-    private List<Particle> collectedParticles = new ArrayList<>();
-    private List<ColliderPart> collectedColliderParts = new ArrayList<>();
+    private ArrayList<Particle> collectedParticles = new ArrayList<>();
+    private List<String> collectedColliderParts = new ArrayList<>();
     private int collectedEnergy = 0;
-    private int level = 0;
+    private int level = 6;
 
     public User(final String name)
     {
@@ -35,22 +35,22 @@ public final class User
         this.name = name;
     }
 
-    public List<Particle> getCollectedParticles()
+    public ArrayList<Particle> getCollectedParticles()
     {
         return collectedParticles;
     }
 
-    public void setCollectedParticles(final List<Particle> collectedParticles)
+    public void setCollectedParticles(final ArrayList<Particle> collectedParticles)
     {
         this.collectedParticles = collectedParticles;
     }
 
-    public List<ColliderPart> getCollectedColliderParts()
+    public List<String> getCollectedColliderParts()
     {
         return collectedColliderParts;
     }
 
-    public void setCollectedColliderParts(final List<ColliderPart> collectedColliderParts)
+    public void setCollectedColliderParts(final List<String> collectedColliderParts)
     {
         this.collectedColliderParts = collectedColliderParts;
     }
@@ -70,8 +70,9 @@ public final class User
         List<String> particleNames = new ArrayList<>();
         for (final Particle p : this.collectedParticles)
         {
-            particleNames.add(p.getName())
+            particleNames.add(p.getName());
         }
+        return particleNames;
     }
 
 
@@ -85,5 +86,9 @@ public final class User
                 ", collectedEnergy=" + collectedEnergy +
                 ", level=" + level +
                 '}';
+    }
+
+    public void collectParticle(Particle particle) {
+        this.collectedParticles.add(particle);
     }
 }

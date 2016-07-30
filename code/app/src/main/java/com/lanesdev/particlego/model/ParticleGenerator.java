@@ -22,7 +22,7 @@ public final class ParticleGenerator
         final Map<LatLng, Particle>  particles = new HashMap<LatLng, Particle> ();
         for (int i = 0; i < number; i++)
         {
-            MapParticle particle = generateParticle(hasBubbleChamber, 1);
+            MapParticle particle = generateParticle(hasBubbleChamber, userlevel);
             particles.put(particle.getLocation(),particle.getParticle());
         }
         return particles;
@@ -39,10 +39,10 @@ public final class ParticleGenerator
 
         final double possibleParticlesNumber = hasBubbleChamber ? POSSIBLE_PARTICLES_WITH_CHAMBER : POSSIBLE_PARTICLES_NO_CHAMBER;
 
+
         String name = "Electron";
 
         if (userlevel > 0 && randNum > 1.0 / possibleParticlesNumber)
-
         {
             name = "Proton";
         }
