@@ -16,11 +16,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.lanesdev.particlego.model.Collider;
+import com.lanesdev.particlego.model.Level;
 import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.User;
 import com.lanesdev.particlego.service.LocationService;
 import com.lanesdev.particlego.view.ExperimentFragment;
 import com.lanesdev.particlego.view.MapFragment;
+import com.lanesdev.particlego.view.PopUp;
 import com.lanesdev.particlego.view.StatusFragment;
 import com.lanesdev.particlego.view.TabAdapter;
 
@@ -138,6 +140,15 @@ public class Controller extends AppCompatActivity {
         this.colliders.put(13, lhc);
     }
 
+    public void refreshMap() {
+        FragmentManager supportFragment = getSupportFragmentManager();
+        if(supportFragment.getFragments().size() > 0) {
+            MapFragment mapFragment = (MapFragment) (supportFragment.getFragments().get(0));
+            if (mapFragment != null)
+                mapFragment.restartMap();
+        }
+    }
+
     private class LocationReceiver extends BroadcastReceiver {
 
         @Override
@@ -177,6 +188,7 @@ public class Controller extends AppCompatActivity {
                 if(fg != null && fg.getClass() == StatusFragment.class)
                     ((StatusFragment)fg).refresh(level);
         }
+        new PopUp().showPopup(Controller.this, Level.getLevelContent(level));
     }
 
 

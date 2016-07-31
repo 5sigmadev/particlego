@@ -130,7 +130,7 @@ public class ExperimentFragment extends Fragment {
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             user.collectParticle(new Particle(colliders.get(collidersBuilt).getParticleDiscovered()));
             refresh();
-            //restartMap();
+            ((Controller)getActivity()).refreshMap();
             ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "Collided successfully, you have just leveled up!", Toast.LENGTH_SHORT).show();
         }
