@@ -98,7 +98,7 @@ public class ExperimentFragment extends Fragment {
                                 user.collectParticle(new Particle(colliders.get(collidersBuilt).getParticleDiscovered()));
                                 refresh();
                                 ((Controller)getActivity()).updateStatus(user.getLevel());
-                                Toast.makeText(getContext(), "Collided successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Collided successfully, you have just leveled up!", Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
