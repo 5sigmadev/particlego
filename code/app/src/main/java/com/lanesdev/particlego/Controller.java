@@ -145,14 +145,16 @@ public class Controller extends AppCompatActivity {
     }
 
     public void collectParticle(Particle p){
-        this.user.collectParticle(p);
-        FragmentManager supportFragment = getSupportFragmentManager();
-        if(supportFragment.getFragments().size() == 2) {
-            ExperimentFragment experimentFragment = (ExperimentFragment) (supportFragment.getFragments().get(1));
-            if (experimentFragment != null)
-                experimentFragment.refresh();
+        if(p != null) {
+            this.user.collectParticle(p);
+            FragmentManager supportFragment = getSupportFragmentManager();
+            if (supportFragment.getFragments().size() == 2) {
+                ExperimentFragment experimentFragment = (ExperimentFragment) (supportFragment.getFragments().get(1));
+                if (experimentFragment != null)
+                    experimentFragment.refresh();
+            }
+            Log.e("TAG", String.valueOf(this.user.getCollectedParticles().size()));
         }
-        Log.e("TAG", String.valueOf(this.user.getCollectedParticles().size()));
     }
 
 }
