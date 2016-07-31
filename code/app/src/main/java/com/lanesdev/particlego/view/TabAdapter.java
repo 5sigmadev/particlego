@@ -41,7 +41,10 @@ public class TabAdapter extends FragmentPagerAdapter {
                 tab2.setArguments(bundle2);
                 return tab2;
             case 2:
+                Bundle bundle3 = new Bundle();
+                bundle3.putParcelable("USER", this.user);
                 StatusFragment tab3 = new StatusFragment();
+                tab3.setArguments(bundle3);
                 return tab3;
             default:
                 return null;

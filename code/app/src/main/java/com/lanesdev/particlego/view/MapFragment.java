@@ -10,13 +10,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.lanesdev.particlego.Controller;
-import com.lanesdev.particlego.R;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,15 +22,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.lanesdev.particlego.model.MapParticle;
+import com.lanesdev.particlego.R;
 import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.ParticleGenerator;
 import com.lanesdev.particlego.model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 
@@ -70,6 +66,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         user = getArguments().getParcelable("USER");
         particleMapList = new HashMap<LatLng, Particle>();
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getFragmentManager().beginTransaction().remove(this).commit();
     }
 
     public void updateMap(Location location) {
