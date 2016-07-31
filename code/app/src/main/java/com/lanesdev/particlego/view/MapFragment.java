@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.lanesdev.particlego.model.MapParticle;
 import com.lanesdev.particlego.model.Particle;
 import com.lanesdev.particlego.model.ParticleGenerator;
+import com.lanesdev.particlego.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +43,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private GoogleMap mMap;
     private Marker mCurrentPoint;
     private Map<LatLng, Particle> particleMapList;
-    private int userLevel;
+    private User user;
 
 
 
@@ -65,7 +67,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Inflate the layout for this fragment
         SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(this);
-        this.userLevel = getArguments().getInt("USER_LEVEL");
+        user = getArguments().getParcelable("USER");
         particleMapList = new HashMap<LatLng, Particle>();
         return rootView;
     }
@@ -89,8 +91,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
     private Map<LatLng,Particle> generatePoints(){
-        boolean hasCloudChamber = this.userLevel > 2;
-        return ParticleGenerator.generateParticles(10, hasCloudChamber, this.userLevel);
+        boolean hasCloudChamber = this.user.getLevel() > 2;
+        return ParticleGenerator.generateParticles(10, hasCloudChamber, this.user.getLevel());
     }
 
     @Override
@@ -112,36 +114,49 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
         return false;
     }
-    /// MARCOLOGIC
+
     private void levelUp(Particle p){
         if(user.getLevel() == 0 && p.getName() == "Electron"){
             user.setLevel(user.getLevel() + 1);
+            restartMap();
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
-        if(user.getLevel() == 1 && p.getName() == "Proton"){
+        else if(user.getLevel() == 1 && p.getName() == "Proton"){
             user.setLevel(user.getLevel() + 1);
+            restartMap();
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
-        if(user.getLevel() == 2 && p.getName() == "Neutron"){
+        else if(user.getLevel() == 2 && p.getName() == "Neutron"){
             user.setLevel(user.getLevel() + 1);
             particleMapList = generatePoints();
             populateMap(particleMapList);
+            restartMap();
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
-        if(user.getLevel() == 3 && p.getName() == "Positron"){
+        else if(user.getLevel() == 3 && p.getName() == "Positron"){
             user.setLevel(user.getLevel() + 1);
+            restartMap();
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
-        if(user.getLevel() == 4 && p.getName() == "Muon"){
+        else if(user.getLevel() == 4 && p.getName() == "Muon"){
             user.setLevel(user.getLevel() + 1);
+            restartMap();
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
-        if(user.getLevel() == 5 && p.getName() == "Kaon"){
+        else if(user.getLevel() == 5 && p.getName() == "Kaon"){
             user.setLevel(user.getLevel() + 1);
+            restartMap();
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
-        }   
+        }
+        ((Controller)getActivity()).updateStatus(user.getLevel());
     }
-    /// MARCOLOGIC
+
+    private void restartMap() {
+        mMap.clear();
+        particleMapList = generatePoints();
+        populateMap(particleMapList);
+    }
+
     private double distanceBetween(LatLng point) {
 
         Location currentLoc = new Location(LocationManager.GPS_PROVIDER);

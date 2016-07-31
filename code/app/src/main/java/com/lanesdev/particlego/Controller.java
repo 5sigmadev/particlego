@@ -20,6 +20,7 @@ import com.lanesdev.particlego.model.User;
 import com.lanesdev.particlego.service.LocationService;
 import com.lanesdev.particlego.view.ExperimentFragment;
 import com.lanesdev.particlego.view.MapFragment;
+import com.lanesdev.particlego.view.StatusFragment;
 import com.lanesdev.particlego.view.TabAdapter;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Controller extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Map"));
         tabLayout.addTab(tabLayout.newTab().setText("Experiment"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Status"));
+        tabLayout.addTab(tabLayout.newTab().setText("Status"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -156,5 +157,15 @@ public class Controller extends AppCompatActivity {
             Log.e("TAG", String.valueOf(this.user.getCollectedParticles().size()));
         }
     }
+
+    public void updateStatus(int level) {
+        FragmentManager supportFragment = getSupportFragmentManager();
+        if (supportFragment.getFragments().size() == 3) {
+            StatusFragment statusFragment = (StatusFragment) (supportFragment.getFragments().get(2));
+            if (statusFragment != null)
+                statusFragment.refresh(level);
+        }
+    }
+
 
 }

@@ -29,7 +29,7 @@ public class TabAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 Bundle bundle1 = new Bundle();
-                bundle1.putInt("USER_LEVEL", this.user.getLevel());
+                bundle1.putParcelable("USER", this.user);
                 MapFragment tab1 = new MapFragment();
                 tab1.setArguments(bundle1);
                 return tab1;
@@ -40,8 +40,8 @@ public class TabAdapter extends FragmentPagerAdapter {
                 ExperimentFragment tab2 = new ExperimentFragment();
                 tab2.setArguments(bundle2);
                 return tab2;
-            case 3:
-                ExperimentFragment tab3 = new ExperimentFragment();
+            case 2:
+                StatusFragment tab3 = new StatusFragment();
                 return tab3;
             default:
                 return null;

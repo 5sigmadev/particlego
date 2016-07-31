@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.lanesdev.particlego.Controller;
 import com.lanesdev.particlego.R;
 import com.lanesdev.particlego.model.Collider;
 import com.lanesdev.particlego.model.Particle;
@@ -63,23 +64,23 @@ public class ExperimentFragment extends Fragment {
                 if(user.getLevel() == 0){
                     Toast.makeText(getContext(), "You need to collect an electron now", Toast.LENGTH_SHORT).show();
                 }
-                if(user.getLevel() == 1){
+                else if(user.getLevel() == 1){
                     Toast.makeText(getContext(), "You need to collect a proton now", Toast.LENGTH_SHORT).show();
                 }
-                if(user.getLevel() == 2){
+                else if(user.getLevel() == 2){
                     Toast.makeText(getContext(), "You need to collect a neutron now", Toast.LENGTH_SHORT).show();
                 }
-                if(user.getLevel() == 3){
+                else if(user.getLevel() == 3){
                     Toast.makeText(getContext(), "You need to collect a positron now", Toast.LENGTH_SHORT).show();
                 }
-                if(user.getLevel() == 4){
+                else if(user.getLevel() == 4){
                     Toast.makeText(getContext(), "You need to collect a muon now", Toast.LENGTH_SHORT).show();
                 }
-                if(user.getLevel() == 5){
+                else if(user.getLevel() == 5){
                     Toast.makeText(getContext(), "You need to collect a kaon now", Toast.LENGTH_SHORT).show();
                 }
                 // MARCOLOGIC ENDS HERE
-                if(user.getLevel() < colliders.size() && user.getLevel() > 5){
+                else if(user.getLevel() < colliders.size() && user.getLevel() > 5){
                     int colliderEnergy = colliders.get(userLevel).getMaxEnergy();
                     if (energy >= colliderEnergy)
                     {
@@ -96,6 +97,7 @@ public class ExperimentFragment extends Fragment {
                                 user.setCollidersBuilt(user.getCollidersBuilt() + 1);
                                 user.collectParticle(new Particle(colliders.get(collidersBuilt).getParticleDiscovered()));
                                 refresh();
+                                ((Controller)getActivity()).updateStatus(user.getLevel());
                                 Toast.makeText(getContext(), "Collided successfully", Toast.LENGTH_SHORT).show();
                             }
                             else
