@@ -122,39 +122,44 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
         else if(user.getLevel() == 1 && p.getName() == "Proton"){
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
         else if(user.getLevel() == 2 && p.getName() == "Neutron"){
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
         else if(user.getLevel() == 3 && p.getName() == "Positron"){
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
         else if(user.getLevel() == 4 && p.getName() == "Muon"){
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
         else if(user.getLevel() == 5 && p.getName() == "Kaon"){
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
             restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
             Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
         }
-        ((Controller)getActivity()).updateStatus(user.getLevel());
     }
 
     private void restartMap() {
