@@ -57,7 +57,6 @@ public class Level {
                 return new Level(R.drawable.congrats, "Congratulations you have won");
             default:
                 return new Level(R.drawable.level_up_one, "J.J. Thomson discovered electron in the year 1897 by observing so called “cathode rays” which illuminated vacuum tubes when high voltage was applied. He managed to determine the electron’s charge to mass ratio and for the discovery of this elementary particle, he was awarded a nobel prize for physics in the year 1906.");
-
         }
     }
 }
