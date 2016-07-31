@@ -104,9 +104,9 @@ public class Controller extends AppCompatActivity {
         Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, "Muon", new ArrayList<String>());
         Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, "Kaon", new ArrayList<String>());
         Collider bevatron = new Collider("Bevatron", 1, "Antiproton", Arrays.asList("Magnets", "Vacuum chamber"));
-        Collider poltergeist = new Collider("Poltergeist", 0, "Neutrino", Arrays.asList("Reactor", "Chemicals"));
-        Collider slack0 = new Collider("SLAC", 90, "Quarks", Arrays.asList("Magnets", "Beam pipe"));
-        Collider slack1 = new Collider("SLAC", 90, "J/psi", new ArrayList<String>());
+        Collider poltergeist = new Collider("Savannah River Plant", 0, "Neutrino", Arrays.asList("Reactor", "Chemicals"));
+        Collider slack0 = new Collider("SLAC-SLC", 90, "Quarks", Arrays.asList("Magnets", "Beam pipe"));
+        Collider slack1 = new Collider("SLAC-SLC", 90, "J/psi", new ArrayList<String>());
         Collider doris = new Collider("Doris", 10, "Gluon", Arrays.asList("Magnets", "Beam pipe", "Detector"));
         Collider sps0 = new Collider("SPS", 540, "W", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system"));
         Collider sps1 = new Collider("SPS", 540, "Z", new ArrayList<String>());
