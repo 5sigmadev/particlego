@@ -102,6 +102,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 ((Controller)getActivity()).collectParticle(p);
                 marker.remove();
                 particleMapList.remove(marker.getPosition());
+                levelUp(p);   // MARCOLOGIC
                 if(particleMapList.size() < 5){
                     particleMapList = generatePoints();
                     populateMap(particleMapList);
@@ -111,7 +112,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
         return false;
     }
-
+    /// MARCOLOGIC
+    private void levelUp(Particle p){
+        if(user.getLevel() == 0 && p.getName() == "Electron"){
+            user.setLevel(user.getLevel() + 1);
+            Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
+        }
+        if(user.getLevel() == 1 && p.getName() == "Proton"){
+            user.setLevel(user.getLevel() + 1);
+            Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
+        }
+        if(user.getLevel() == 2 && p.getName() == "Neutron"){
+            user.setLevel(user.getLevel() + 1);
+            particleMapList = generatePoints();
+            populateMap(particleMapList);
+            Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
+        }
+        if(user.getLevel() == 3 && p.getName() == "Positron"){
+            user.setLevel(user.getLevel() + 1);
+            Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
+        }
+        if(user.getLevel() == 4 && p.getName() == "Muon"){
+            user.setLevel(user.getLevel() + 1);
+            Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
+        }
+        if(user.getLevel() == 5 && p.getName() == "Kaon"){
+            user.setLevel(user.getLevel() + 1);
+            Toast.makeText(getContext(), "You have just leveled up!", Toast.LENGTH_SHORT).show();
+        }   
+    }
+    /// MARCOLOGIC
     private double distanceBetween(LatLng point) {
 
         Location currentLoc = new Location(LocationManager.GPS_PROVIDER);

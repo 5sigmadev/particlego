@@ -59,7 +59,27 @@ public class ExperimentFragment extends Fragment {
                 // disable button if any of first three if's are false
                 //if (userLevel == collidersBuilt)
                 //{
-                if(user.getLevel() < colliders.size()){
+                // NEW CODE, logic ala Marcosaurus
+                if(user.getLevel() == 0){
+                    Toast.makeText(getContext(), "You need to collect an electron now", Toast.LENGTH_SHORT).show();
+                }
+                if(user.getLevel() == 1){
+                    Toast.makeText(getContext(), "You need to collect a proton now", Toast.LENGTH_SHORT).show();
+                }
+                if(user.getLevel() == 2){
+                    Toast.makeText(getContext(), "You need to collect a neutron now", Toast.LENGTH_SHORT).show();
+                }
+                if(user.getLevel() == 3){
+                    Toast.makeText(getContext(), "You need to collect a positron now", Toast.LENGTH_SHORT).show();
+                }
+                if(user.getLevel() == 4){
+                    Toast.makeText(getContext(), "You need to collect a muon now", Toast.LENGTH_SHORT).show();
+                }
+                if(user.getLevel() == 5){
+                    Toast.makeText(getContext(), "You need to collect a kaon now", Toast.LENGTH_SHORT).show();
+                }
+                // MARCOLOGIC ENDS HERE
+                if(user.getLevel() < colliders.size() && user.getLevel() > 5){
                     int colliderEnergy = colliders.get(userLevel).getMaxEnergy();
                     if (energy >= colliderEnergy)
                     {
