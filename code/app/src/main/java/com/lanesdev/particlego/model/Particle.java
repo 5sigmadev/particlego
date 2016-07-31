@@ -141,7 +141,7 @@ public class Particle implements Parcelable {
     }
 
     public String getDescription() {
-        return "Lorem Ipsum";
+        return "";
     }
 
     public int getResourceFromName(){

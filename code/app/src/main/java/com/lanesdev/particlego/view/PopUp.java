@@ -63,7 +63,7 @@ public class PopUp {
             public void onClick(View v) {
                 popup.dismiss();
                 if(level == 14){
-                    showPopup(activity, Level.getLevelContent(level), -1);
+                    showPopup(activity, Level.getLevelContent(15), -1);
                 }
             }
         });
