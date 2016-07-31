@@ -42,23 +42,23 @@ public final class ParticleGenerator
 
         String name = "Electron";
 
-        if (userlevel == 1 && randNum > 1.0 / possibleParticlesNumber)
+        if (userlevel == 1 )
         {
             name = "Proton";
         }
-        if (userlevel == 2 && randNum > 2.0 / possibleParticlesNumber)
+        if (userlevel == 2 )
         {
             name = "Neutron";
         }
-        if (userlevel == 3 && randNum > 3.0 / possibleParticlesNumber)
+        if (userlevel == 3 )
         {
             name = "Positron";
         }
-        if (userlevel == 4 && randNum > 4.0 / possibleParticlesNumber)
+        if (userlevel == 4 )
         {
             name = "Muon";
         }
-        if (userlevel == 5 && randNum > 5.0 / possibleParticlesNumber)
+        if (userlevel == 5 )
         {
             name = "Kaon";
         }
