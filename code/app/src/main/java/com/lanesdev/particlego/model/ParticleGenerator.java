@@ -42,27 +42,47 @@ public final class ParticleGenerator
 
         String name = "Electron";
 
-        if (userlevel > 0 && randNum > 1.0 / possibleParticlesNumber)
+        if (userlevel == 1 && randNum > 1.0 / possibleParticlesNumber)
         {
             name = "Proton";
         }
-        if (userlevel > 1 && randNum > 2.0 / possibleParticlesNumber)
+        if (userlevel == 2 && randNum > 2.0 / possibleParticlesNumber)
         {
             name = "Neutron";
         }
-        if (userlevel > 2 && randNum > 3.0 / possibleParticlesNumber)
+        if (userlevel == 3 && randNum > 3.0 / possibleParticlesNumber)
         {
             name = "Positron";
         }
-        if (userlevel > 3 && randNum > 4.0 / possibleParticlesNumber)
+        if (userlevel == 4 && randNum > 4.0 / possibleParticlesNumber)
         {
             name = "Muon";
         }
-        if (userlevel > 4 && randNum > 5.0 / possibleParticlesNumber)
+        if (userlevel == 5 && randNum > 5.0 / possibleParticlesNumber)
         {
             name = "Kaon";
         }
-
+        if (userlevel == 6)
+        {
+            name = "Proton";
+        }
+        if (userlevel == 7)
+        {
+            name = "Neutron";
+        }
+        if (userlevel >= 8 && userlevel <= 10)
+        {
+            if(randNum > 0.5)
+            {
+                name = "Electron";
+            } else {
+                name = "Positron";
+            }
+        }
+        if (userlevel > 10)
+        {
+            name = "Proton";
+        }
         return new MapParticle(new Particle(name), new LatLng(latitude, longitude));
     }
 }

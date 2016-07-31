@@ -84,29 +84,30 @@ public class ExperimentFragment extends Fragment {
                     int colliderEnergy = colliders.get(userLevel).getMaxEnergy();
                     if (energy >= colliderEnergy)
                     {
-                        if (Collections.frequency(particleNames, "Electron") >= 2) //fix particle for collider
+                        if (collidersBuilt == 6 && Collections.frequency(particleNames, "Proton") >= 1) //fix particle for collider
                         {
-                            user.setEnergy(user.getEnergy() - colliderEnergy);
-                            //remove 2 particles from user list
-                            user.removeParticleByName("Electron", 2);
+                            user.removeParticleByName("Proton", 1);
                             refresh();
-                            double randNum = r.nextDouble();
-                            if (randNum <= 0.5)
-                            {
-                                user.setLevel(user.getLevel() + 1);
-                                user.setCollidersBuilt(user.getCollidersBuilt() + 1);
-                                user.collectParticle(new Particle(colliders.get(collidersBuilt).getParticleDiscovered()));
-                                refresh();
-                                ((Controller)getActivity()).updateStatus(user.getLevel());
-                                Toast.makeText(getContext(), "Collided successfully, you have just leveled up!", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                //give some other particle
-                                Toast.makeText(getContext(), "Collided unsuccessfully", Toast.LENGTH_SHORT).show();
-                            }
+                            ColliderRunning(colliderEnergy,collidersBuilt);
+                        } else if (collidersBuilt == 7 && Collections.frequency(particleNames, "Neutron") >= 1) //fix particle for collider
+                        {
+                            user.removeParticleByName("Neutron", 1);
+                            refresh();
+                            ColliderRunning(colliderEnergy,collidersBuilt);
+                        } else if (collidersBuilt >= 8 && collidersBuilt <= 10 && Collections.frequency(particleNames, "Electron") >= 1 && Collections.frequency(particleNames, "Positron") >= 1) //fix particle for collider
+                        {
+                            user.removeParticleByName("Electron", 1);
+                            user.removeParticleByName("Positron", 1);
+                            refresh();
+                            ColliderRunning(colliderEnergy,collidersBuilt);
+                        } else if (collidersBuilt > 10 && Collections.frequency(particleNames, "Proton") >= 2) //fix particle for collider
+                        {
+                            user.removeParticleByName("Proton", 2);
+                            refresh();
+                            ColliderRunning(colliderEnergy,collidersBuilt);
                         } else {
                             System.out.println("No particles");
+                            Toast.makeText(getContext(), "You need to get the particle to collige", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         System.out.println("No energy");
@@ -119,6 +120,25 @@ public class ExperimentFragment extends Fragment {
         });
 
         return rootView;
+    }
+    private void ColliderRunning(int colliderEnergy,int collidersBuilt){
+        user.setEnergy(user.getEnergy() - colliderEnergy);
+        double randNum = r.nextDouble();
+        if (randNum <= 0.5)
+        {
+            user.setLevel(user.getLevel() + 1);
+            user.setCollidersBuilt(user.getCollidersBuilt() + 1);
+            user.collectParticle(new Particle(colliders.get(collidersBuilt).getParticleDiscovered()));
+            refresh();
+            //restartMap();
+            ((Controller)getActivity()).updateStatus(user.getLevel());
+            Toast.makeText(getContext(), "Collided successfully, you have just leveled up!", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            //give some other particle
+            Toast.makeText(getContext(), "Collided unsuccessfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void CreateListView() {

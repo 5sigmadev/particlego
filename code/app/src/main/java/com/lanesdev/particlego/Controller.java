@@ -104,13 +104,21 @@ public class Controller extends AppCompatActivity {
         Collider bubbleChamber4 = new Collider("Bubble Chamber", 0, "Muon", new ArrayList<String>());
         Collider bubbleChamber5 = new Collider("Bubble Chamber", 0, "Kaon", new ArrayList<String>());
         Collider bevatron = new Collider("Bevatron", 1, "Antiproton", Arrays.asList("Magnets", "Vacuum chamber"));
+        // use one proton
         Collider poltergeist = new Collider("Savannah River Plant", 0, "Neutrino", Arrays.asList("Reactor", "Chemicals"));
+        // use neutron
         Collider slack0 = new Collider("SLAC-SLC", 90, "Quarks", Arrays.asList("Magnets", "Beam pipe"));
+        // use eletctron and positron
         Collider slack1 = new Collider("SLAC-SLC", 90, "J/psi", new ArrayList<String>());
+        // use eletctron and positron
         Collider doris = new Collider("Doris", 10, "Gluon", Arrays.asList("Magnets", "Beam pipe", "Detector"));
+        // use electron and positron
         Collider sps0 = new Collider("SPS", 540, "W", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system"));
+        // use two protons
         Collider sps1 = new Collider("SPS", 540, "Z", new ArrayList<String>());
+        // use two protons
         Collider lhc = new Collider("LHC", 14000, "Higgs boson", Arrays.asList("Magnets", "Beam pipe", "Detector", "Controlling system", "Liquid helium"));
+        // use two protons
 
         this.colliders.put(0, bubbleChamber0);
         this.colliders.put(1, bubbleChamber1);
