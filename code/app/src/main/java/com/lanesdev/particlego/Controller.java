@@ -155,7 +155,7 @@ public class Controller extends AppCompatActivity {
         public void onReceive(Context arg0, Intent arg1) {
 
             mCurrentLocation = arg1.getParcelableExtra("LOCATION");
-            Toast.makeText(getApplicationContext(), "New Location Received at Main Activity", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "New Location Received at Main Activity", Toast.LENGTH_SHORT).show();
             FragmentManager supportFragment = getSupportFragmentManager();
             if(supportFragment.getFragments().size() > 0) {
                 MapFragment mapFragment = (MapFragment) (supportFragment.getFragments().get(0));
@@ -188,7 +188,7 @@ public class Controller extends AppCompatActivity {
                 if(fg != null && fg.getClass() == StatusFragment.class)
                     ((StatusFragment)fg).refresh(level);
         }
-        new PopUp().showPopup(Controller.this, Level.getLevelContent(level));
+        new PopUp().showPopup(Controller.this, Level.getLevelContent(level), level);
     }
 
 

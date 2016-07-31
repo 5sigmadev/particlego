@@ -25,7 +25,7 @@ import com.lanesdev.particlego.model.Level;
 public class PopUp {
 
     // The method that displays the popup.
-    public void showPopup(Activity activity, Level levelContent) {
+    public void showPopup(final Activity activity, final Level levelContent, final int level) {
 
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
         int width = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -62,6 +62,9 @@ public class PopUp {
             @Override
             public void onClick(View v) {
                 popup.dismiss();
+                if(level == 14){
+                    showPopup(activity, Level.getLevelContent(level), -1);
+                }
             }
         });
     }
