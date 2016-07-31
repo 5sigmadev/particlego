@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import com.lanesdev.particlego.view.TabAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Controller extends AppCompatActivity {
 
@@ -168,10 +170,12 @@ public class Controller extends AppCompatActivity {
 
     public void updateStatus(int level) {
         FragmentManager supportFragment = getSupportFragmentManager();
-        if (supportFragment.getFragments().size() == 3) {
-            StatusFragment statusFragment = (StatusFragment) (supportFragment.getFragments().get(2));
-            if (statusFragment != null)
-                statusFragment.refresh(level);
+
+        List<Fragment> fragments = supportFragment.getFragments();
+        if (fragments.size() == 3) {
+            for(Fragment fg : fragments)
+                if(fg != null && fg.getClass() == StatusFragment.class)
+                    ((StatusFragment)fg).refresh(level);
         }
     }
 

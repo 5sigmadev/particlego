@@ -141,6 +141,12 @@ public class ExperimentFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getFragmentManager().beginTransaction().remove(this).commit();
+    }
+
     private void CreateListView() {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         listvAdapter = new ExperimentItemAdapter(getActivity().getApplicationContext(), R.layout.experiment_item, data);
