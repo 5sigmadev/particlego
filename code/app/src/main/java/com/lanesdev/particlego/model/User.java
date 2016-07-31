@@ -13,7 +13,7 @@ public final class User implements Parcelable {
     private List<String> collectedColliderParts = new ArrayList<>();
     private int collectedEnergy = 0;
     private int level = 0;
-    private int collidersBuilt = 5;
+    private int collidersBuilt = 0;
     private int energy;
 
     public User(final String name)
