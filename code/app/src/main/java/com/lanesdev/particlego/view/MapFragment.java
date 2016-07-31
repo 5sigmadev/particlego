@@ -162,7 +162,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     }
 
-    private void restartMap() {
+    public void restartMap() {
         mMap.clear();
         particleMapList = generatePoints();
         populateMap(particleMapList);

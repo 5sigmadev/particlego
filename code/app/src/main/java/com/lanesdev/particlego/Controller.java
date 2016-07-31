@@ -140,6 +140,15 @@ public class Controller extends AppCompatActivity {
         this.colliders.put(13, lhc);
     }
 
+    public void refreshMap() {
+        FragmentManager supportFragment = getSupportFragmentManager();
+        if(supportFragment.getFragments().size() > 0) {
+            MapFragment mapFragment = (MapFragment) (supportFragment.getFragments().get(0));
+            if (mapFragment != null)
+                mapFragment.restartMap();
+        }
+    }
+
     private class LocationReceiver extends BroadcastReceiver {
 
         @Override

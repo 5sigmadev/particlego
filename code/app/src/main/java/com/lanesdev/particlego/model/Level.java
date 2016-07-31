@@ -1,5 +1,7 @@
 package com.lanesdev.particlego.model;
 
+import com.lanesdev.particlego.R;
+
 /**
  * Created by ppanero on 31/07/16.
  */
@@ -24,8 +26,9 @@ public class Level {
     public static Level getLevelContent(int level) {
         switch (level){
             case 0:
-                return ;
-            case 1:
+            default:
+                return new Level(R.drawable.level_eight_img, "you leveled up bastard!!!!");
+            /*case 1:
                 return ;
             case 2:
                 return ;
@@ -54,7 +57,7 @@ public class Level {
             case 14:
                 return ;
             default:
-                return ;
+                return ;*/
 
         }
     }
