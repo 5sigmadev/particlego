@@ -123,8 +123,8 @@ public class ExperimentFragment extends Fragment {
     }
     private void ColliderRunning(int colliderEnergy,int collidersBuilt){
         user.setEnergy(user.getEnergy() - colliderEnergy);
-        double randNum = r.nextDouble();
-        if (randNum <= 0.5)
+        //double randNum = r.nextDouble();
+        if (0 <= 0.5)
         {
             user.setLevel(user.getLevel() + 1);
             user.setCollidersBuilt(user.getCollidersBuilt() + 1);
